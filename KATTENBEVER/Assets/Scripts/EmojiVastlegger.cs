@@ -7,16 +7,15 @@ public class EmojiVastlegger : MonoBehaviour
 {
     [Header("Camera dingen")]
     [SerializeField] Camera cam1;
-    public string emojiBestandNaam;
     [Space]
     [Header("Emoji Plekken Dingen")]
     public List<EmojiClass> emojis = new List<EmojiClass>();
-    int plekNummer;
-    public SpriteRenderer sprit;
+    int plekNummer = 0;
+    public SpriteRenderer fotoOpnameArea;
 
     private void Start()
     {
-        //sprit.sprite = Resources.Load<Sprite>("Emojis/Emoji4");
+        //sprit.sprite = Resources.Load<Sprite>("gezichten/Emoji4"); //resources.loadtest
     }
 
     public void legEmojiVast()
@@ -25,10 +24,27 @@ public class EmojiVastlegger : MonoBehaviour
         {
             StartCoroutine(CoroutineScreenshot());
         }
-        else if (!plekjeVrijCheck())
+        else
         {
-            Debug.Log("Eerst eentje verwijderen!!");
+            Debug.Log("Verwijder eerst eentje!!");
         }
+        
+    }
+
+    private IEnumerator CoroutineScreenshot()
+    {
+        yield return new WaitForEndOfFrame();
+        int width = 800;
+        int height = 800;
+        Texture2D screenShotTexture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+        Rect rect = new Rect(0, 0, width, height);
+        screenShotTexture.ReadPixels(rect, 0, 0); //print rectangle on the texture, 0, 0 post on the texture
+        screenShotTexture.Apply();
+
+        byte[] byteArray = screenShotTexture.EncodeToPNG();
+        System.IO.File.WriteAllBytes("Assets/Resources/Gezichten/Emoji" + plekNummer + ".png", byteArray);
+        Sprite tempSprite = Sprite.Create(screenShotTexture, rect, new Vector2(0.5f, 0.5f));
+        plaatsEmojiOpPlek(plekNummer, tempSprite);
     }
 
     bool plekjeVrijCheck()
@@ -48,53 +64,11 @@ public class EmojiVastlegger : MonoBehaviour
         return false;
     }
 
-    void plaatsEmojiOpPlek(int plek)
+    void plaatsEmojiOpPlek(int plek, Sprite sprite)
     {
         EmojiClass emojiClasRefje = emojis[plek];
         emojiClasRefje.gevuld = true;
-        emojiClasRefje.emojiSprite = Resources.Load<Sprite>("Emojis/Emoji" + plekNummer);
+        emojiClasRefje.emojiSprite = sprite;
         emojiClasRefje.spritePlek.GetComponent<SpriteRenderer>().sprite = emojiClasRefje.emojiSprite; 
     }
-
-    void fotografeerEmoji(Camera cam)
-    {
-        int width = 600;
-        int height = 600;
-        RenderTexture screenTexture = new RenderTexture(width, height, 16);
-        cam.targetTexture = screenTexture;
-        RenderTexture.active = screenTexture;
-        cam.Render();
-        Texture2D renderedTexture = new Texture2D(width, height);
-        renderedTexture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        RenderTexture.active = null;
-
-
-        byte[] byteArray = renderedTexture.EncodeToPNG();
-
-        if (plekjeVrijCheck())
-        {
-            System.IO.File.WriteAllBytes(Application.dataPath + ("/Resources/Emojis/" + emojiBestandNaam + plekNummer + ".png"), byteArray);
-            plaatsEmojiOpPlek(plekNummer);
-        }
-        else if(!plekjeVrijCheck())
-        {
-            Debug.Log("Eerst eentje verwijderen!!");
-        }
-    }
-    private IEnumerator CoroutineScreenshot()
-    {
-        yield return new WaitForEndOfFrame();
-
-        int width = Screen.width;
-        int height = Screen.height;
-        Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-        Rect rect = new Rect(0, 0, width, height);
-        screenshotTexture.ReadPixels(rect, 0, 0);
-        screenshotTexture.Apply();
-
-        byte[] byteArray = screenshotTexture.EncodeToPNG();
-        System.IO.File.WriteAllBytes(Application.dataPath + ("/Resources/Emojis/Emoji" + plekNummer + ".png"), byteArray);
-        plaatsEmojiOpPlek(plekNummer);
-    }
-
 }
