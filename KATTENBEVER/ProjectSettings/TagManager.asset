@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Gezichtonderdelen
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GezichtAchter
+    uniqueID: 3787768713
+    locked: 0
+  - name: GezichtsOnderdelen
+    uniqueID: 3929350533
     locked: 0
