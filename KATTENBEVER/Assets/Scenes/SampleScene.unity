@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1674313c8312f3448b92f6af51b100f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam1: {fileID: 519420031}
+  cam1: {fileID: 515611153}
   emojiBestandNaam: Emoji
   emojis:
   - gevuld: 0
