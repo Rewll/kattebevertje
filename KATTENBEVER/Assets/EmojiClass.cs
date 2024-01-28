@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [System.Serializable]
-public class EmojiClass
+public class EmojiClass : MonoBehaviour
 {
     public bool gevuld;
     public Sprite emojiSprite;

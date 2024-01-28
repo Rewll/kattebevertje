@@ -9,13 +9,18 @@ public class EmojiVastlegger : MonoBehaviour
     [SerializeField] Camera cam1;
     [Space]
     [Header("Emoji Plekken Dingen")]
-    public List<EmojiClass> emojis = new List<EmojiClass>();
+    public List<GameObject> emojis = new List<GameObject>();
     int plekNummer = 0;
     public SpriteRenderer fotoOpnameArea;
+    public Sprite leegPlekje;
+    [Space]
+    [Header("Zooi")]
+    public GameObject plekkenZijnVolBericht;
 
     private void Start()
     {
         //sprit.sprite = Resources.Load<Sprite>("gezichten/Emoji4"); //resources.loadtest
+        plekkenZijnVolBericht.SetActive(false);
     }
 
     public void legEmojiVast()
@@ -23,9 +28,11 @@ public class EmojiVastlegger : MonoBehaviour
         if (plekjeVrijCheck())
         {
             StartCoroutine(CoroutineScreenshot());
+            
         }
         else
         {
+            plekkenZijnVolBericht.SetActive(true);
             Debug.Log("Verwijder eerst eentje!!");
         }
         
@@ -49,13 +56,14 @@ public class EmojiVastlegger : MonoBehaviour
 
     bool plekjeVrijCheck()
     {
-        foreach (EmojiClass emojiPlek in emojis)
+        foreach (GameObject emojiPlek in emojis)
         {
-            if (emojiPlek.gevuld)
+            EmojiClass emj = emojiPlek.GetComponent<EmojiClass>();
+            if (emj.gevuld)
             {
                 continue;
             }
-            else if (!emojiPlek.gevuld)
+            else if (!emj.gevuld)
             {
                 plekNummer = emojis.IndexOf(emojiPlek);
                 return true;
@@ -66,9 +74,17 @@ public class EmojiVastlegger : MonoBehaviour
 
     void plaatsEmojiOpPlek(int plek, Sprite sprite)
     {
-        EmojiClass emojiClasRefje = emojis[plek];
+        EmojiClass emojiClasRefje = emojis[plek].GetComponent<EmojiClass>();
         emojiClasRefje.gevuld = true;
         emojiClasRefje.emojiSprite = sprite;
-        emojiClasRefje.spritePlek.GetComponent<SpriteRenderer>().sprite = emojiClasRefje.emojiSprite; 
+        emojis[plek].GetComponent<SpriteRenderer>().sprite = emojiClasRefje.emojiSprite; 
+    }
+
+    public void leegEmojiPlek(int plek)
+    {
+        GameObject tempPlek = emojis[plek];
+        tempPlek.GetComponent<EmojiClass>().gevuld = false;
+        tempPlek.GetComponent<EmojiClass>().emojiSprite = leegPlekje;
+        tempPlek.GetComponent<SpriteRenderer>().sprite = leegPlekje;
     }
 }

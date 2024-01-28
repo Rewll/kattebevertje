@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 7138474123862238897}
   - component: {fileID: 4964927065974343109}
   - component: {fileID: 1739906585539423874}
-  - component: {fileID: 5035554981380852912}
   - component: {fileID: 8198593954143727141}
+  - component: {fileID: 6634146974067434011}
   m_Layer: 0
   m_Name: Oog
   m_TagString: Untagged
@@ -185,8 +185,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slepend: 0
---- !u!58 &5035554981380852912
-CircleCollider2D:
+--- !u!114 &8198593954143727141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341838595248269737}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d1b52463b701b418e4bdbf3a005219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oogDraaiPunt: {fileID: 1002063484908478412}
+  speed: 100
+  rotationModifier: 0
+  pupilBewegen: 0
+--- !u!70 &6634146974067434011
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -218,24 +234,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &8198593954143727141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341838595248269737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1d1b52463b701b418e4bdbf3a005219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oogDraaiPunt: {fileID: 1002063484908478412}
-  speed: 100
-  rotationModifier: 0
-  pupilBewegen: 0
+  m_Size: {x: 0.92, y: 2.06}
+  m_Direction: 0
 --- !u!1 &6363398674687475037
 GameObject:
   m_ObjectHideFlags: 0
