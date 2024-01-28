@@ -8,5 +8,19 @@ public class EmojiClass : MonoBehaviour
 {
     public bool gevuld;
     public Sprite emojiSprite;
-    public GameObject spritePlek;
+    //public GameObject spritePlek;
+    [Space]
+    public GameObject selecteerKnop;
+
+    private void Update()
+    {
+        if (gevuld)
+        {
+            selecteerKnop.SetActive(true);
+        }
+        else if (!gevuld)
+        {
+            selecteerKnop.SetActive(false);
+        }
+    }
 }

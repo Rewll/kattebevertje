@@ -14,6 +14,9 @@ public class EmojiVastlegger : MonoBehaviour
     public SpriteRenderer fotoOpnameArea;
     public Sprite leegPlekje;
     [Space]
+    [Header("Emoji Plaats dingen")]
+    public Sprite geselecteerdeEmojiSprite;
+    public bool emojiGeselecteerd;
     [Header("Zooi")]
     public GameObject plekkenZijnVolBericht;
 
@@ -84,7 +87,28 @@ public class EmojiVastlegger : MonoBehaviour
     {
         GameObject tempPlek = emojis[plek];
         tempPlek.GetComponent<EmojiClass>().gevuld = false;
+        geselecteerdeEmojiSprite = null;
+        emojiGeselecteerd = false;
         tempPlek.GetComponent<EmojiClass>().emojiSprite = leegPlekje;
         tempPlek.GetComponent<SpriteRenderer>().sprite = leegPlekje;
+    }
+
+    public void SelecteerEmoji(int plek)
+    {
+        geselecteerdeEmojiSprite = emojis[plek].GetComponent<EmojiClass>().emojiSprite;
+        emojiGeselecteerd = true;
+    }
+
+    public void plaatsEmojiOpBrief()
+    {
+        if (emojiGeselecteerd)
+        {
+            Debug.Log("Plaats sprite: " + geselecteerdeEmojiSprite.name);
+        }
+    }
+
+    public void leegSelectie()
+    {
+        emojiGeselecteerd = false;
     }
 }
